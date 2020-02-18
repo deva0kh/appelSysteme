@@ -1,0 +1,6 @@
+#!/bin/bash
+if [ $# -ne 1 ]; then   
+ echo "preciser le fichier "  
+   exit 1 
+fi
+nomfe=$1 ./majuscule < $1 | ./par 4
