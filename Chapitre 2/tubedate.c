@@ -1,6 +1,9 @@
 #include<stdio.h> 
 #include<unistd.h> 
 #include<sys/wait.h>
+
+#include <fcntl.h>
+
 main() { 
     int i, p[2]; 
     char c, 
@@ -13,9 +16,13 @@ main() {
          close(p[1]); 
          execlp("date","date","+%d/%m/%Y",NULL);
          perror("Pb avec execlp date"); exit(1); 
-         } 
-        
+         }
          close(p[1]); 
+        int f=open("kal1.txt",O_WRONLY | O_CREAT, 0666); 
+        if(f==-1){perror("pb ouverture de fe");
+         exit(1);}
+         dup2(f,1);
+    
          i=0; 
          while(read(p[0],&c,1)!=0) 
          {
