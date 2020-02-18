@@ -18,19 +18,21 @@ main() {
          perror("Pb avec execlp date"); exit(1); 
          }
          close(p[1]); 
-        int f=open("kal1.txt",O_WRONLY | O_CREAT, 0666); 
-        if(f==-1){perror("pb ouverture de fe");
+         dup2(p[1],0);
+         int f=open("kal1.txt",O_WRONLY | O_CREAT, 0666); 
+         if(f==-1){perror("pb ouverture de fe");
          exit(1);}
-         dup2(f,1);
-    
+         
+         
          i=0; 
          while(read(p[0],&c,1)!=0) 
          {
              res[i++]=c;
         }
-
+            dup2(f,1);
          //res[i-1]=0;    
             
              printf("Date du jour: %s\n",res); close(p[0]); 
+             
              wait(0);
               } 

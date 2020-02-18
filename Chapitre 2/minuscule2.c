@@ -19,7 +19,7 @@ main(int argc, char* argv[]) {
           } 
           wait(0);
 
-          dup2(p[0],1);
+          dup2(p[0],0);
           
           
 }
