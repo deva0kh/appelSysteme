@@ -7,10 +7,5 @@ void test(int sig) {
      }
  main() { 
      signal(SIGINT,test); 
-     signal(SIGQUIT,test);  
-     signal(SIGTSTP,test); 
-     signal(SIGUSR1,test);  
-     if(signal(SIGSTOP, test) == SIG_ERR) {perror ("SIGSTOP");} 
-     if(signal(SIGKILL, test) == SIG_ERR) {perror ("SIGKILL");} 
      for(;;); 
       }

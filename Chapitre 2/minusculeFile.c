@@ -15,7 +15,7 @@ main(int argc, char* argv[]) {
           int fe=open(argv[1],O_RDONLY);
           if(fe==-1){perror("ouverture de fe");exit(2);} 
           dup2(fe,0);      
-          dup2(p[1],1);   
+          dup2(1,p[1]);   
           close(fe);         
           close(p[0]);    
           close(p[1]);    
@@ -24,19 +24,14 @@ main(int argc, char* argv[]) {
           } 
           wait(0);
 
-
           char buffer[100];
           
-           int fm=open(nomfm1,O_WRONLY | O_TRUNC | O_CREAT, 0666); 
+       int fm=open(nomfm1,O_WRONLY | O_TRUNC | O_CREAT, 0666); 
         if (fm==-1){perror("FM error");exit(4);}
-               dup2(p[1],0);
-                dup2(1,fm);
-                 while(read(p[0],&c,1)!=0) 
-         {
-             res[i++]=c;
-        }
-        //read(p[0], buffer,sizeof(buffer));
-                 printf("%s",res);
-          close(fm);
+                 dup2(0,p[0]);
+                 read(p[0], buffer,100);
+                 dup2(fm,1);
+                 
+                 printf("%s\n",buffer);
           
 }
